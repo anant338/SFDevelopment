@@ -1,0 +1,15 @@
+<apex:page controller="ExpensePDF" renderAs="pdf" >
+  <html>
+      <head>
+          <h>This is Heading</h>
+      </head>
+      <body>
+          <apex:image url="{!$Resource.ExpenseImage}" width="100" height="100"/>
+          <p>
+              This is body section.<br/>
+              <b>Expense Record Id:</b>{!Expense.Id}<br/>
+              <b>Name:</b>{!Expense.Name}<br/>
+          </p>
+      </body>
+    </html>
+</apex:page>

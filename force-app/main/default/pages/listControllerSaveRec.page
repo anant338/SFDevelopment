@@ -1,0 +1,33 @@
+<apex:page standardController="Account" recordSetVar="acct">
+<apex:tabPanel switchType="client" >
+<apex:tab label="Account List" name="Account List" id="TabOne">
+<apex:form >
+
+<Apex:pageBlock >
+<apex:selectList value="{!filterid}" size="1"> 
+<apex:selectOptions value="{!listviewoptions}">
+</apex:selectOptions>
+</apex:selectList>
+<apex:commandButton value="Go" action="{!list}"/>
+
+<apex:pageBlockButtons >
+<apex:commandButton value="Save" action="{!quicksave}"/>
+</apex:pageBlockButtons>
+<apex:pageBlockTable value="{!acct}" var="a">
+<apex:column value="{!a.Name}"/>
+<apex:column headerValue="Site"> <apex:inputField value="{!a.site}"/> </apex:column>
+<apex:column headerValue="Type"> <apex:inputField value="{!a.type}"/> </apex:column>
+</apex:pageBlockTable>
+</Apex:pageBlock>
+</apex:form>
+</apex:tab>
+<!--Related list will be visible only if page is open for any record-->
+<apex:tab label="Account Related List" name="Related List" id="Tabtwo" >
+<apex:pageBlock >
+  <apex:relatedList list="Contacts"/>
+   <apex:relatedList list="Opportunities"/>
+    
+   </apex:pageBlock>
+</apex:tab>
+</apex:tabPanel>  
+</apex:page>

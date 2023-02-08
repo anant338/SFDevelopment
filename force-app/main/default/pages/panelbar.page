@@ -1,0 +1,22 @@
+<apex:page standardcontroller="Account">
+  <apex:panelBar >
+  <apex:panelBarItem label="Account Details" onenter="alert('Entering Account Details')" onleave="alert('Leaving Account Details')">
+  <apex:outputField value="{!account.name}"/>
+  <apex:outputField value="{!account.site}"/>
+  <apex:outputField value="{!account.type}"/>
+  </apex:panelBarItem>
+  <apex:panelBarItem label="Related List" onenter="alert('Entering Related List')" onleave="alert('Leaving Related List')">
+  <apex:relatedList list="Contacts"/>
+  </apex:panelBarItem>
+   <apex:panelBarItem label="Panel Grid" onenter="alert('Entering Panel Grid')" onleave="alert('Leaving Panel Grid')">
+  <apex:panelGrid border="3" bgcolor="grey" columns="3" cellspacing="7" cellpadding="5">
+  <apex:outputtext value="1"/>
+  <apex:outputtext value="2"/>
+  <apex:outputtext value="3"/>
+  <apex:outputtext value="4"/>
+  <apex:outputtext value="5"/>
+  <apex:outputtext value="6"/>
+  </apex:panelGrid>
+  </apex:panelBarItem>
+  </apex:panelBar>
+</apex:page>

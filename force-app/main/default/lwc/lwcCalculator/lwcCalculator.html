@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title="Calculator">
+        <lightning-layout multiple-rows=true vertical-align="center" >
+            <lightning-layout-item size=5 padding="around-small">
+                <lightning-input type="number" label ="First Number" name="fNum" onchange={numUpdate}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size=5 padding="around-small">
+                <lightning-input type="number" label ="Second Number" name="sNum" onchange={numUpdate}></lightning-input>
+            </lightning-layout-item>
+            <lightning-button-group>
+                <lightning-button variant="brand" label="Add"  icon-name="utility:add" icon-position="left" onclick={addNum}></lightning-button>
+                <lightning-button variant="brand" label="Sub"  icon-name="utility:dash" icon-position="left" onclick={subNum}></lightning-button>
+                <lightning-button variant="brand" label="Mul" icon-name="utility:close" icon-position="left" onclick={mulNum}></lightning-button>
+                <lightning-button variant="brand" label="Div" icon-name="utility:italic" icon-position="left" onclick={divNum}></lightning-button>
+            </lightning-button-group>
+            <lightning-layout-item size=12 padding="around-small">
+                <lightning-formatted-text value={result}></lightning-formatted-text>
+            </lightning-layout-item>  
+            <lightning-layout-item size=12 padding="around-small">         
+                <lightning-input type="checkbox" label="show history" onclick={showHistory}></lightning-input>
+            </lightning-layout-item> 
+            <template if:true ={showhistorychecked}>
+                <lightning-layout-item size=4 padding="around-small">
+                <template iterator:result= {resultHistory} >                    
+                    <div if:true={result.first} class="slds-border_top" key={result.value}> </div> 
+                    <div class="slds-border_left" key={result.value}>     
+                    <div class="slds-border_right" key={result.value}>              
+                    <p key={result.value}>={result.value}</p>     
+                </div>     
+                </div>        
+                <div if:true={result.last} class="slds-border_bottom" key={result.value}></div>                   
+                </template>
+            </lightning-layout-item>
+            </template>
+        </lightning-layout>
+    </lightning-card>
+    
+</template>

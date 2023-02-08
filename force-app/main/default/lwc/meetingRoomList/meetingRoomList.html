@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Meeting Rooms">
+    <ul>
+    <template for:each={meetingRooms}  for:item="rooms">
+        <li key={rooms.roomNo}>
+     <!--passing value to child class - class name and api name should be passed in kebab case -->
+     <!--passing show-room-details(in kebab case) sets it value to true-->
+       <c-meeting-room-details meeting-rooms={rooms} show-room-details  ></c-meeting-room-details>
+        </li>
+    </template>
+</ul>
+</lightning-card>
+</template>

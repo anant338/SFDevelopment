@@ -1,0 +1,11 @@
+<aura:component controller="adobeSignController" 
+                implements="force:lightningQuickActionWithOutheader,force:hasRecordId" 
+                access="global">
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="dontshowAlert" type="Boolean" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="adobeSignPageUrl" type="String" />
+    <aura:if isTrue="{!v.dontshowAlert}">
+        <div>Please wait...</div>
+    </aura:if>
+</aura:component>

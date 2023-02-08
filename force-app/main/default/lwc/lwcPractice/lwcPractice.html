@@ -1,0 +1,18 @@
+<template>
+    <lightning-input type="checkbox" label="show" onchange ={setBoolean} > </lightning-input>
+       <template if:true={showtext}>
+        <div>Checkbox is checked</div>
+    </template>
+    <template if:false={showtext}>
+        <div>Checkbox is not checked</div>
+    </template>
+    <template for:each={cityList} for:item="city" >
+        <!--key is mandatory for iteration-->
+    <p key={cityKey}>{city}</p>
+    </template>
+    <template iterator:it={cityList}>
+        <p key={cityKey}>{it.value}</p>
+    </template>  
+    
+   
+</template>

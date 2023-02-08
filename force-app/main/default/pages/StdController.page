@@ -1,0 +1,64 @@
+<apex:page standardController="Account">
+<apex:form >
+  <!--apex:detail /-->
+  <!--apex:relatedList list="Opportunities" /-->
+  <apex:pageblock Title="Account information" >
+  <!--Use location="Top" to display button only on top of page otherwise it appears on Top and Bottom-->
+  <apex:pageBlockButtons location="Top">
+  <apex:commandButton value="Save and Go" action="{!save}"/>
+  <apex:commandButton value="Save and Stay" action="{!quicksave}"/>
+  <apex:commandButton value="Cancel" action="{!cancel}"/>
+  <apex:commandButton value="Delete" action="{!delete}"/>
+    <apex:commandButton value="Return to Account list" action="{!list}"/>
+  </apex:pageBlockButtons>
+  <apex:pageBlockSection title="Basic Details"  columns="3">
+  <apex:inputField value="{!account.Name}"/>
+   <apex:inputField value="{!account.Site}"/>
+   <apex:inputField value="{!account.type}"/>
+   <apex:inputField value="{!account.accountsource}"/>
+   <apex:inputField value="{!account.CleanStatus}"/>
+   </apex:pageBlockSection>
+   <apex:pageBlockSection title="Contact Details"  columns="3">
+  <!--apex:inputField value="{!account.BillingAddress}"/-->
+  <!--Address field cannot be used directly -- it has below 5 components-->
+  <apex:inputField value="{!account.BillingStreet}"/>
+  <apex:inputField value="{!account.BillingCity}"/>
+  <apex:inputField value="{!account.BillingState}"/>
+  <apex:inputField value="{!account.BillingCountry}"/>
+  <apex:inputField value="{!account.BillingPostalcode }"/>  
+   <apex:inputField value="{!account.Fax}"/>
+   <apex:inputField value="{!account.Phone}"/>
+   <apex:inputField value="{!account.Website}"/>
+   </apex:pageBlockSection>
+   <apex:pageBlockSection title="Custom Info">
+   Number of Employee: <apex:inputText id="EmpCount" />
+   Annual revenue:<apex:inputText id="AnnRev" />
+   DUNS Number : <apex:inputSecret id="DunsNum" />
+   Year Started: <apex:inputText id="YearStarted" />
+   Rebate: <apex:inputCheckbox id="Rebated" />
+   Comments: <apex:inputTextarea id="Comment" />
+ 
+    </apex:pageBlockSection>
+   
+   <apex:pageBlockSection title="Financial Info">
+   <apex:outputField value="{!account.NumberOfEmployees}"/>
+  <apex:outputField value="{!account.AnnualRevenue}"/>
+  <apex:outputField value="{!account.DunsNumber}"/>
+  <apex:outputField value="{!account.YearStarted}"/>
+   </apex:pageBlockSection>
+   <apex:pageBlockSection title="Cases Details" columns="7" >
+   <apex:pageBlockTable value="{!account.cases}" var="items"  >
+   <apex:column value="{!items.CaseNumber}"/>
+  <apex:column value="{!items.Source}"/>
+  <apex:column value="{!items.CreatedDate}"/>
+  <apex:column value="{!items.Status}"/>
+  <apex:column value="{!items.Type}"/>
+  <apex:column value="{!items.Subject}"/>
+  <apex:column value="{!items.Priority}"/>
+   </apex:pageBlockTable>
+    </apex:pageBlockSection>
+   </apex:pageblock>
+  </apex:form>
+  <apex:relatedList list="Contacts"/>
+   <apex:relatedList list="Opportunities"/>
+</apex:page>

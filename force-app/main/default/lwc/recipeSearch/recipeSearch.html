@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Search Recipe">
+        <div style="padding: 0 1rem">
+        <lightning-layout horizontal-align="space">
+            <lightning-layout-item size="6">
+                <lightning-input type="Search" label="Enter Recipe" 
+                placeholder="Search Recipe by ingredient" variant="label-hidden" class="ingredient-input"></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-medium">
+                <lightning-layout horizontal-align="start">
+                <lightning-layout-item padding="horizontal-medium">
+                <lightning-button variant="brand" label ="Search" onclick={searchRecipe}></lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item >
+                <lightning-button variant="brand" label =" Get Random Recipe" onclick={searchRecipeByIngredient} class="slds-m-left_x-small"></lightning-button>
+            </lightning-layout-item>
+            </lightning-layout>
+            </lightning-layout-item>
+          </lightning-layout>
+          <lightning-layout multiple-rows>
+            <template for:each={recipeList} for:item="recipe">
+            <lightning-layout-item size="12" key={recipe.id}>
+                <c-recipe-details
+                  
+                  image ={recipe.image}
+                  title ={recipe.title}
+                  summary ={recipe.summary}
+                  price ={recipe.price}
+                  ready-in-minutes ={recipe.readyInMinutes}
+                ></c-recipe-details>
+             </lightning-layout-item>
+        </template>
+          </lightning-layout>
+        </div>
+    </lightning-card>
+    
+</template>

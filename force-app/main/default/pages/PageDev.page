@@ -1,0 +1,43 @@
+<apex:page >
+<apex:form >
+ <!--form tag is mandatory if buttons are added on the page-->
+  <apex:pageBlock >
+  <!--Created a header Block to place the buttons at Top and Bottom of the Page-->
+   <apex:pageBlockButtons >
+  <apex:commandButton value="Save"/>
+  <apex:commandButton value="Cancel"/>
+  </apex:pageBlockButtons>
+  
+  <apex:pageBlock title="Block 1" >
+  
+  <apex:pageMessage summary="Error Message without icon" severity="Error"></apex:pageMessage> 
+   <apex:pageMessage summary="Error Message with icon" severity="Error" strength="2"></apex:pageMessage> 
+   <apex:pageMessage summary="Confirm Message with icon" severity="confirm"  strength="3" ></apex:pageMessage> 
+   <apex:pageMessage summary="Info Message with icon" severity="Info"  strength="1" ></apex:pageMessage> 
+   <apex:pageMessage summary="Warning Message with icon" severity="warning"  strength="2" ></apex:pageMessage> 
+   
+  <apex:pageBlockSection title="Section 1">
+  <apex:pageBlockSectionItem DataTitle="Course 1">Salesforce Admin</apex:pageBlockSectionItem>
+   <apex:pageBlockSectionItem >Platform App Builder</apex:pageBlockSectionItem>
+   <apex:pageBlockSectionItem >Salesforce Developer</apex:pageBlockSectionItem>
+  </apex:pageBlockSection>
+  
+  <apex:pageBlockSection title="Section 2">
+  </apex:pageBlockSection>
+  </apex:pageBlock>
+  
+  <apex:pageBlock >Block 2
+   <apex:pageBlockSection title="Section 1" columns="3" collapsible="false"  >
+   
+   <apex:pageBlockSectionItem DataTitle="Course 1">Salesforce Admin</apex:pageBlockSectionItem>
+   <apex:pageBlockSectionItem >Platform App Builder</apex:pageBlockSectionItem>
+   <apex:pageBlockSectionItem >Salesforce Developer</apex:pageBlockSectionItem>
+   
+  </apex:pageBlockSection>
+  
+  <apex:pageBlockSection title="Section 2" columns="2" collapsible="false" >
+  </apex:pageBlockSection>  
+  </apex:pageBlock>
+  </apex:pageBlock>
+   </apex:form>
+</apex:page>

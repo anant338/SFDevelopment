@@ -1,0 +1,66 @@
+<apex:page controller="ConfLocController">
+           
+    <head>
+        <title>Add Map</title>
+        <style type="text/css">
+        <!-- Set the size of the div element that contains the map-->
+         #map { height: 800px;width: 100%;}
+         html {height :100%}
+         body {height :100%; margin:0; padding :0}
+    </style> 
+    <script>
+      <!--Initialize and add the map-->
+      function initMap() {
+        <!--Default Location-->
+        const defloc = { lat: 45.518, lng: -122.956 };
+        <!--The map, centered at Default Location-->
+        const map = new google.maps.Map(document.getElementById("map"), { zoom: 15, center: defloc,});
+        <!--The marker, positioned at Default Location-->
+       const marker = new google.maps.Marker({ position: defloc, map: map, });
+      <!-- LoadConfLoc(); -->
+      }
+        <!--Fetch Location from Conference Object and add Marker for that Location-->
+      function LoadConfLoc(){
+         visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ConfLocController.ConferenceList}'
+             function(result,event){
+                     if (event.status) {
+                        for (var i=0, i<=result.length;i++) {
+                        var id =result[i].id
+                        var conf_loc_name = result[i].Conference_Location__c
+                        var latitiude = result[i].Location__latitude__s
+                        var longitude = result[i].Location__longitude__s
+                        latitiude 
+                        addMarker(id,conf_loc_name,latitiude,longitude)
+                                                            }
+                                       }
+                                          else {
+                                             alert(message)
+                                               }
+                                  },escape(true)
+                     };
+             } 
+             
+             function addMarker(id,conf_loc_name,latitiude,longitude) {
+              var marker =new google.maps.Marker({
+                  postion: new google.maps.LatLng(latitiude,longitude)
+                  map: map
+                  title :conf_loc_name
+                  });
+                 google.maps.events.addListener(marker,'click',function(event) {
+                     window.top.location ='/'+id;
+                                                 });
+                 }
+       google.maps.event.addDomListener(window,'load',initMap)
+        
+    </script>       
+    </head>
+  <body>
+      <h3>Google Maps</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaZzK22CfF0LfQrOTtGva3TTQ__-5vPak&amp;callback=initMap"
+      async="async"
+    ></script>
+  </body>    
+</apex:page>
