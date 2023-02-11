@@ -7,7 +7,7 @@ import groovy.json.JsonSlurperClassic
     // -------------------------------------------------------------------------
 pipeline{
     agent{
-        docker { image 'salesforce/salesforcedx:7.188.1-slim' }
+        docker { image 'salesforcedx:7.188.1-slim' }
     }
    stages{
          stage('checkout source') {
