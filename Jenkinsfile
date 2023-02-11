@@ -6,6 +6,7 @@ import groovy.json.JsonSlurperClassic
     // Check out code from source control.
     // -------------------------------------------------------------------------
 pipeline{
+      agent any
    stages{
          stage('checkout source') {
                    steps{
