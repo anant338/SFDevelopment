@@ -17,6 +17,8 @@ pipeline{
           stage('Get CLI from Docker'){
               steps{ 
                         bat 'docker pull salesforce/salesforcedx:latest-rc-slim' 
+                        bat 'docker run -it salesforce/salesforcedx:latest-rc-slim'
+                        bat 'docker images'
                    }
               }
          stage('Test SFDX'){
