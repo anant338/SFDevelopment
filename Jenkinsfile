@@ -19,11 +19,12 @@ pipeline{
                         bat 'docker pull salesforce/salesforcedx:latest-rc-slim' 
                         bat 'docker run -i salesforce/salesforcedx:latest-rc-slim'
                         bat 'docker images'
+                        bat 'sfdx version'
                    }
               }
          stage('Test SFDX'){
              steps{
-                   bat 'sfdx version' 
+                 //  bat 'sfdx version' 
                 }
              }
       }
