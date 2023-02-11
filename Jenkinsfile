@@ -17,15 +17,15 @@ pipeline{
           stage('Get CLI from Docker'){
               steps{
                  script{
-                        rc=command "docker pull salesforce/salesforcedx:latest-rc-slim"
-                        rc=command "docker run -it salesforce/salesforcedx:latest-rc-slim"
+                        sh "docker pull salesforce/salesforcedx:latest-rc-slim"
+                        sh "docker run -it salesforce/salesforcedx:latest-rc-slim"
                        }
                    }
               }
          stage('Test SFDX'){
              steps{
                  script{
-                        rc= command "sfdx version"
+                        sh "sfdx version"
                       }
                 }
              }
