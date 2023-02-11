@@ -22,7 +22,11 @@ pipeline{
                    }
               }
          stage('Test SFDX'){
-                rc= command "sfdx version"
+             steps{
+                 script{
+                        rc= command "sfdx version"
+                      }
+                }
              }
       }
    }   
