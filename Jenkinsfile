@@ -24,7 +24,7 @@ pipeline{
               }
          stage('Test SFDX'){
              steps{
-                 //  bat 'sfdx version' 
+                   echo 'Job Complete'
                 }
              }
       }
