@@ -1,10 +1,31 @@
-pipeline {
-    agent { docker { image 'golang:1.19.1-alpine' } }
-    stages {
-        stage('build') {
-            steps {
-                sh 'go version'
-            }
-        }
-    }
-}
+#!groovy
+
+import groovy.json.JsonSlurperClassic
+
+// -------------------------------------------------------------------------
+    // Check out code from source control.
+    // -------------------------------------------------------------------------
+pipeline{
+    agent any
+      stages{
+         stage('checkout source') {
+                   steps{
+                         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/anant338/SFDevelopment.git']]])
+                   }
+              }
+    
+          stage('Get CLI from Docker'){
+              steps{ 
+                        sh 'docker pull salesforce/salesforcedx:latest-rc-slim'
+                        sh 'docker run -it salesforce/salesforcedx:latest-rc-slim'
+                        sh 'docker images' 
+                       
+                   }
+              }
+         stage('Test SFDX'){
+             steps{
+                   sh "sfdx version"  
+                }
+             }
+      }
+   }   
