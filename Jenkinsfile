@@ -25,8 +25,7 @@ pipeline{
          stage('Test SFDX'){
              steps{
                  script{
-                        rc=command "sfdx version"
-                        echo ${rc}
+                        sh 'sfdx version'
                       }
                 }
              }
