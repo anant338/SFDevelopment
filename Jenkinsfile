@@ -6,7 +6,9 @@ import groovy.json.JsonSlurperClassic
     // Check out code from source control.
     // -------------------------------------------------------------------------
 pipeline{
-      agent any
+    agent{
+        docker { image 'salesforce/salesforcedx:7.188.1-slim' }
+    }
    stages{
          stage('checkout source') {
                    steps{
@@ -16,18 +18,13 @@ pipeline{
     
           stage('Get CLI from Docker'){
               steps{
-                 script{
-                        sh "docker pull salesforce/salesforcedx:latest-rc-slim"
-                        sh "docker run -it salesforce/salesforcedx:latest-rc-slim"
                         sh 'docker images' 
-                       }
+                       
                    }
               }
          stage('Test SFDX'){
              steps{
-                 script{
-                        rc= command "sfdx version"
-                      }
+                   sh "sfdx version"  
                 }
              }
       }
