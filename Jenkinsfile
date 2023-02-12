@@ -6,7 +6,7 @@ import groovy.json.JsonSlurperClassic
     def SF_USERNAME='anantfromdbg@gmail.com'
     def SERVER_KEY_CREDENTALS_ID='34fa2a72-30ba-419a-bf54-39a2594bc2cd'
     def TEST_LEVEL='RunLocalTests'
-    def SF_INSTANCE_URL = 'https://login.salesforce.com'
+    def SF_INSTANCE_URL = "https://anant07-dev-ed.my.salesforce.com"
 
 pipeline{
   
