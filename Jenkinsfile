@@ -6,7 +6,7 @@ import groovy.json.JsonSlurperClassic
     def SF_USERNAME='anantfromdbg@gmail.com'
     def SERVER_KEY_CREDENTALS_ID='34fa2a72-30ba-419a-bf54-39a2594bc2cd'
     def TEST_LEVEL='RunLocalTests'
-    def SF_INSTANCE_URL = "https://anant07-dev-ed.my.salesforce.com"
+    def SF_INSTANCE_URL = 'https://anant07-dev-ed.my.salesforce.com/'
 
 pipeline{
   
@@ -48,19 +48,26 @@ pipeline{
                    
                  }
              }
+          
+       withEnv(["HOME=${env.WORKSPACE}"]) {
+        
+        withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
+          
           stage('Authorize Dev Org'){
               steps{
                   script{
                   if(isUnix()){
-                   rc=sh returnStatus: true, script: 'docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${SERVER_KEY_CREDENTALS_ID} --setdefaultdevhubusername'
+                   rc=sh returnStatus: true, script: "docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername"
                   } else {
-                    rc=bat returnStatus: true, script: 'docker exec -i SFCLI bin/bash sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile \"${SERVER_KEY_CREDENTALS_ID}\" --setdefaultdevhubusername'  
+                    rc=bat returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile \"${server_key_file}\" --setdefaultdevhubusername"  
                   } 
                   if(rc != 0) {error 'Org Authorization failed'}
-                  }
+                  } //--script
                   echo rc
-                }
-          }
+                } //--steps
+          } //--stage
+        }
+       }    
          stage('Job Complete'){
              steps{
                   bat 'docker stop SFCLI'
