@@ -16,7 +16,8 @@ pipeline{
     
           stage('Get CLI from Docker'){
               steps{  
-                        try{
+                  script {    
+                     try{
                             bat 'docker pull salesforce/salesforcedx:latest-rc-slim'
                             bat 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
                             bat 'docker ps'   
@@ -29,6 +30,7 @@ pipeline{
                              bat 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
                              bat 'docker ps'
                            }
+                     }
                   }
           }
         
