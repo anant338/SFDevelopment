@@ -43,7 +43,9 @@ pipeline{
                      }
                   }
           }
-        
+      withEnv(["HOME=${env.WORKSPACE}"]) {
+        withCredentials([file(credentialsId: '7d0dbdb9-c9ee-4524-9c3a-e0d07113dad7', variable: 'jwt_key_file')]) {
+          
        stage('Test SFDX'){
              steps{
                    bat 'docker exec -i SFCLI bin/bash sfdx version'
@@ -55,7 +57,7 @@ pipeline{
               steps{
                   script{
                  
-                  withCredentials([file(credentialsId: '7d0dbdb9-c9ee-4524-9c3a-e0d07113dad7', variable: 'jwt_key_file')]) {
+                  
                      
                   if(isUnix()){
                    rc=sh returnStatus: true, script: 'docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${jwt_key_file}'
@@ -64,13 +66,14 @@ pipeline{
                     bat 'docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --jwtkeyfile ${jwt_key_file} --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME}'    
                   } 
                  // if(rc != 0) {error 'Org Authorization failed'}
-                  } //-withCredentials
+                 
                   } //--script
                   echo rc
                 } //--steps
           } //--stage
         
-           
+        } //-withCredentials 
+      } //-WithEnv
          stage('Job Complete'){
              steps{
                   bat 'docker stop SFCLI'
