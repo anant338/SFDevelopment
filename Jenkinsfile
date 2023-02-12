@@ -57,9 +57,9 @@ pipeline{
                   withEnv(["HOME=${env.WORKSPACE}"]) {
                   withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
                   if(isUnix()){
-                   rc=sh returnStatus: true, script: "docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file} --setdefaultdevhubusername"
+                   rc=sh returnStatus: true, script: "docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file}"
                   } else {
-                    rc=bat returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile \"${server_key_file}\" --setdefaultdevhubusername"  
+                    rc=bat returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file}"  
                   } 
                   if(rc != 0) {error 'Org Authorization failed'}
                   }}
