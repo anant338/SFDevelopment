@@ -21,7 +21,7 @@ pipeline{
                         bat 'docker rm SFCLI'
                         bat 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
                         bat 'docker ps'
-                        bat 'docker exec -it SFCLI bin/bash sfdx version'
+                        bat 'docker exec -i SFCLI bin/bash sfdx version'
                    }
               }
          stage('Test SFDX'){
