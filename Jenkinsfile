@@ -15,21 +15,23 @@ pipeline{
               }
     
           stage('Get CLI from Docker'){
-              steps{ 
-                        bat 'docker pull salesforce/salesforcedx:latest-rc-slim'
-                  try{
-                        bat 'docker stop SFCLI'
-                        bat 'docker rm SFCLI'
-                        
-                  } 
-                  catch(Error) {
-                        echo 'Salesforce CLI is not running'
-                  }     
-                        bat 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
-                        bat 'docker ps'
-                        
-                   }
-              }
+              steps{  
+                        try{
+                            bat 'docker pull salesforce/salesforcedx:latest-rc-slim'
+                            bat 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
+                            bat 'docker ps'   
+                           } 
+                        catch(Error) {
+                             echo 'Salesforce CLI is not running'
+                             bat 'docker stop SFCLI'
+                             bat 'docker rm SFCLI'
+                             bat 'docker pull salesforce/salesforcedx:latest-rc-slim'
+                             bat 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
+                             bat 'docker ps'
+                           }
+                  }
+          }
+        
          stage('Test SFDX'){
              steps{
                    bat 'docker exec -i SFCLI bin/bash sfdx version'
