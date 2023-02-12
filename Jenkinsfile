@@ -11,10 +11,12 @@ import groovy.json.JsonSlurperClassic
 pipeline{
   
     agent any
-    withEnv(["HOME=${env.WORKSPACE}"]) {
+    
+      stages{
+          
+        withEnv(["HOME=${env.WORKSPACE}"]) {
         
         withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
-      stages{
     
        // -------------------------------------------------------------------------
        // Check out code from source control.
@@ -74,7 +76,9 @@ pipeline{
                   echo 'Job Complete'
              }
            }
-      } //--Stages
-        }
+          
+              }
     }
+      } //--Stages
+    
    } //--Pipeline  
