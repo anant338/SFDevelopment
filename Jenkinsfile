@@ -32,7 +32,9 @@ pipeline{
              }
          stage('Job Complete'){
              steps{
-              echo 'Job Complete'
+                  bat 'docker stop SFCLI'
+                  bat 'docker rm SFCLI'
+                  echo 'Job Complete'
              }
            }
       }
