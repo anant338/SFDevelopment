@@ -56,11 +56,11 @@ pipeline{
                   script{
                  
                   withCredentials([file(credentialsId: 'cbb7c33c-8554-417a-a85b-1d63c976ede6', variable: 'jwt_key_file')]) {
-                      echo "${server_key_file}"
+                      echo "${jwt_key_file}"
                      // echo credentials('34fa2a72-30ba-419a-bf54-39a2594bc2cd')
                     //  echo credentials(${SERVER_KEY_CREDENTALS_ID})
                   if(isUnix()){
-                   rc=sh returnStatus: true, script: 'docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file}'
+                   rc=sh returnStatus: true, script: 'docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${jwt_key_file}'
                   } else {
                     rc=bat returnStatus: true, script: 'docker exec -i SFCLI bin/bash sfdx auth:jwt:grant --jwtkeyfile \"${jwt_key_file}\" --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME}'  
                   } 
