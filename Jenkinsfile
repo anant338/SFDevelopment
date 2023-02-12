@@ -20,8 +20,12 @@ pipeline{
                   try{
                         bat 'docker stop SFCLI'
                         bat 'docker rm SFCLI'
+                        
+                  } 
+                  catch{
+                        echo 'Salesforce CLI is not running'
+                  }     
                         bat 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
-                     }
                         bat 'docker ps'
                         
                    }
