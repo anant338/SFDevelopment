@@ -62,9 +62,10 @@ pipeline{
                   if(isUnix()){
                    rc=sh returnStatus: true, script: 'docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${jwt_key_file}'
                   } else {
-                    rc=bat returnStatus: true, script: 'docker exec -i SFCLI sfdx force:auth:jwt:grant --jwtkeyfile \"${jwt_key_file}\" --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME}'  
+                   // rc=bat returnStatus: true, script: 'docker exec -i SFCLI sfdx force:auth:jwt:grant --jwtkeyfile \"${jwt_key_file}\" --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME}' 
+                    bat 'docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --jwtkeyfile ${jwt_key_file} --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME}'    
                   } 
-                  if(rc != 0) {error 'Org Authorization failed'}
+                 // if(rc != 0) {error 'Org Authorization failed'}
                   } //-withCredentials
                   } //--script
                   echo rc
