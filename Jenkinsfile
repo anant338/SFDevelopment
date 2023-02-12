@@ -56,7 +56,7 @@ pipeline{
                   } else {
                     rc=bat returnStatus: true, script: 'docker exec -i SFCLI bin/bash sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile \"${SERVER_KEY_CREDENTALS_ID}\" --setdefaultdevhubusername'  
                   } 
-                  if(rc != 0) (error 'Org Authorization failed')
+                  if(rc != 0) {error 'Org Authorization failed'}
                   echo rc
                 }
           }
