@@ -6,7 +6,7 @@ import groovy.json.JsonSlurperClassic
     def SF_USERNAME='anantfromdbg@gmail.com'
     def SERVER_KEY_CREDENTALS_ID='34fa2a72-30ba-419a-bf54-39a2594bc2cd'
     def TEST_LEVEL='RunLocalTests'
-    def SF_INSTANCE_URL = 'https://anant07-dev-ed.my.salesforce.com/'
+    def SF_INSTANCE_URL = 'https://login.salesforce.com/'
 
 pipeline{
   
@@ -62,7 +62,7 @@ pipeline{
                   if(isUnix()){
                    rc=sh returnStatus: true, script: 'docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file}'
                   } else {
-                    rc=bat returnStatus: true, script: 'docker exec -i SFCLI bin/bash sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file}'  
+                    rc=bat returnStatus: true, script: 'docker exec -i SFCLI bin/bash sfdx auth:jwt:grant --instanceurl 'https://login.salesforce.com' --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${server_key_file}'  
                   } 
                   if(rc != 0) {error 'Org Authorization failed'}
                   }}
