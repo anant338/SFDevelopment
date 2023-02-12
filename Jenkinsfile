@@ -11,6 +11,9 @@ import groovy.json.JsonSlurperClassic
 pipeline{
   
     agent any
+    withEnv(["HOME=${env.WORKSPACE}"]) {
+        
+        withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
       stages{
     
        // -------------------------------------------------------------------------
@@ -48,11 +51,7 @@ pipeline{
                    
                  }
              }
-          
-       withEnv(["HOME=${env.WORKSPACE}"]) {
-        
-        withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
-          
+
           stage('Authorize Dev Org'){
               steps{
                   script{
@@ -66,8 +65,8 @@ pipeline{
                   echo rc
                 } //--steps
           } //--stage
-        }
-       }    
+        
+           
          stage('Job Complete'){
              steps{
                   bat 'docker stop SFCLI'
@@ -75,5 +74,7 @@ pipeline{
                   echo 'Job Complete'
              }
            }
-      }
-   }   
+      } //--Stages
+        }
+    }
+   } //--Pipeline  
