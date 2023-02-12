@@ -56,7 +56,7 @@ pipeline{
                   script{
                   withEnv(["HOME=${env.WORKSPACE}"]) {
                   withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
-                      echo ${server_key_file}
+                      echo "${server_key_file}"
                       echo credentials('34fa2a72-30ba-419a-bf54-39a2594bc2cd')
                       echo credentials(${SERVER_KEY_CREDENTALS_ID})
                   if(isUnix()){
