@@ -51,7 +51,7 @@ pipeline{
              }
           stage('Authorize Dev Org'){
               steps{
-                  if(isUnix){
+                  if(isUnix()){
                    rc=sh returnStatus: true, script: 'docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${SERVER_KEY_CREDENTALS_ID} --setdefaultdevhubusername'
                   } else {
                     rc=bat returnStatus: true, script: 'docker exec -i SFCLI bin/bash sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile \"${SERVER_KEY_CREDENTALS_ID}\" --setdefaultdevhubusername'  
