@@ -7,7 +7,7 @@ import groovy.json.JsonSlurperClassic
     def SERVER_KEY_CREDENTALS_ID='7d0dbdb9-c9ee-4524-9c3a-e0d07113dad7'
     def TEST_LEVEL='RunLocalTests'
     def SF_INSTANCE_URL = 'https://login.salesforce.com/'
-    def SF_SERVER_KEY_PATH = 'C:\Users\anant\OneDrive\Desktop\Openssl\server.key'
+    def SF_SERVER_KEY_PATH = 'C:/Users/anant/OneDrive/Desktop/Openssl/server.key'
 
 pipeline{
   
