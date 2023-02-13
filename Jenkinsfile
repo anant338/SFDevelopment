@@ -57,12 +57,12 @@ pipeline{
                   script{
                  withEnv(["HOME=${env.WORKSPACE}"]) {
                  withCredentials([file(credentialsId: '7d0dbdb9-c9ee-4524-9c3a-e0d07113dad7', variable: 'jwt_key_file')]) {
-                 bat 'use ${jwt_key_file}'
+                 def key_file ='\${jwt_key_file}\'
                   if(isUnix()){
                    rc=sh returnStatus: true, script: 'docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${jwt_key_file}'
                   } else {
                         //rc=bat returnStatus: true, script: 'docker exec -i SFCLI sfdx force:auth:jwt:grant --jwtkeyfile \"${jwt_key_file}\" --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME}' 
-                         bat 'docker exec -i SFCLI sfdx force:auth:jwt:grant --jwtkeyfile "\${jwt_key_file}\" --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME}'    
+                         bat 'docker exec -i SFCLI sfdx force:auth:jwt:grant --jwtkeyfile ${key_file} --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME}'    
                        } 
                            if(rc != 0) {error 'Org Authorization failed'}
                      } //-withCredentials 
