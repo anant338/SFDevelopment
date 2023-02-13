@@ -39,6 +39,7 @@ pipeline{
                              bat 'docker pull salesforce/salesforcedx:latest-slim'
                              bat 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
                              bat 'docker ps'
+                             bat 'exit'
                            }
                      }
                   }
