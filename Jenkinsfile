@@ -58,7 +58,7 @@ pipeline{
                  withEnv(["HOME=${env.WORKSPACE}"]) {
                  withCredentials([file(credentialsId: '7d0dbdb9-c9ee-4524-9c3a-e0d07113dad7', variable: 'jwt_key_file')]) {
                      script{ 
-                         print ${jwt_key_file}
+                         //print ${jwt_key_file}
                          def key_file = "\"+${jwt_key_file}+"\"
                        }
                   if(isUnix()){
