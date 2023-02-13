@@ -1,93 +1,49 @@
 #!groovy
-
 import groovy.json.JsonSlurperClassic
+node {
 
-    def SF_CONSUMER_KEY='3MVG9kBt168mda_8xf5Uf0E_8NG68WIoOcS8YF6mjB9nimUO4rZuDhneuZqE3B1yyv4hQI1dnvZjxUW2gxQhK'
-    def SF_USERNAME='anantfromdbg@gmail.com'
-    def SERVER_KEY_CREDENTALS_ID='7d0dbdb9-c9ee-4524-9c3a-e0d07113dad7'
-    def TEST_LEVEL='RunLocalTests'
-    def SF_INSTANCE_URL = 'https://login.salesforce.com/'
-    def SF_SERVER_KEY_PATH = 'C:/Users/anant/OneDrive/Desktop/Openssl/server.key'
+    def BUILD_NUMBER=env.BUILD_NUMBER
+    def RUN_ARTIFACT_DIR="tests/${BUILD_NUMBER}"
+    def SFDC_USERNAME ='anantfromdbg@gmail.com'
 
-pipeline{
-  
-    agent any
-    
-      stages{
-          
-    
-       // -------------------------------------------------------------------------
-       // Check out code from source control.
-       // -------------------------------------------------------------------------
-         stage('checkout source') {
-                   steps{
-                         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/anant338/SFDevelopment.git']]])
-                   }
-              }
-    
-          stage('Get CLI from Docker'){
-              steps{  
-                  script {    
-                     try{
-                            bat 'docker pull salesforce/salesforcedx:latest-slim'
-                            bat 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
-                            bat 'docker ps'   
-                           } 
-                        catch(Error) {
-                             echo 'Salesforce CLI is not running'
-                             bat 'docker stop SFCLI'
-                             bat 'docker rm SFCLI'
-                             bat 'docker pull salesforce/salesforcedx:latest-slim'
-                             bat 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
-                             bat 'docker ps'
-                             bat 'exit'
-                           }
-                     }
-                  }
-          }
-      
-          
-       stage('Test SFDX'){
-             steps{
-                   bat 'docker exec -i SFCLI bin/bash sfdx version'
-                   
-                 }
-             }
+    def HUB_ORG='anantfromdbg@gmail.com'
+    def SFDC_HOST = 'https://login.salesforce.com'
+    def JWT_KEY_CRED_ID = '7d0dbdb9-c9ee-4524-9c3a-e0d07113dad7'
+    def CONNECTED_APP_CONSUMER_KEY='3MVG9kBt168mda_8xf5Uf0E_8NG68WIoOcS8YF6mjB9nimUO4rZuDhneuZqE3B1yyv4hQI1dnvZjxUW2gxQhK'
 
-          stage('Authorize Dev Org'){
-              steps{
-                  script{
-                 withEnv(["HOME=${env.WORKSPACE}"]) {
-                 withCredentials([file(credentialsId: '7d0dbdb9-c9ee-4524-9c3a-e0d07113dad7', variable: 'jwt_key_file')]) {
-                    // script{ 
-                         //print ${jwt_key_file}
-                   //      def key_file = "\"+${jwt_key_file}+"\"
-                   //    }
-                  if(isUnix()){
-                   rc=sh returnStatus: true, script: 'docker exec -i SFCLI sfdx auth:jwt:grant --instanceurl ${SF_INSTANCE_URL} --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME} --jwtkeyfile ${jwt_key_file}'
-                  } else {
-                        //rc=bat returnStatus: true, script: 'docker exec -i SFCLI sfdx force:auth:jwt:grant --jwtkeyfile \"${jwt_key_file}\" --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME}' 
-                      bat 'docker exec -i SFCLI sfdx force:auth:jwt:grant --jwtkeyfile \"${SF_SERVER_KEY_PATH}\" --instanceurl https://login.salesforce.com --clientid ${SF_CONSUMER_KEY} --username ${SF_USERNAME}'    
-                       } 
-                           if(rc != 0) {error 'Org Authorization failed'}
-                     } //-withCredentials 
-                    } //-WithEnv
-                  } //--script
-                  echo rc
-                } //--steps
-          } //--stage
-        
-       
-         stage('Job Complete'){
-             steps{
-                  bat 'docker stop SFCLI'
-                  bat 'docker rm SFCLI'
-                  echo 'Job Complete'
-             }
-           }
-          
-              
-    
-      } //--Stages
-    
-   } //--Pipeline  
+    println 'KEY IS' 
+    println JWT_KEY_CRED_ID
+    println HUB_ORG
+    println SFDC_HOST
+    println CONNECTED_APP_CONSUMER_KEY
+    def toolbelt = tool 'toolbelt'
+
+    stage('checkout source') {
+        // when running in multi-branch job, one must issue this command
+        checkout scm
+    }
+
+    withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
+        stage('Deploye Code') {
+            if (isUnix()) {
+                rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+            }else{
+                 rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+            }
+            if (rc != 0) { error 'hub org authorization failed' }
+
+			println rc
+			
+			// need to pull out assigned username
+		//	if (isUnix()) {
+		//		rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+		//	}else{
+		//	   rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+		//	}
+			  
+           // printf rmsg
+          //  println('Hello from a Job DSL script!')
+          //  println(rmsg)
+        }
+    }
+}
