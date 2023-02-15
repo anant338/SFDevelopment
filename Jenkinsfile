@@ -25,12 +25,12 @@ node {
     }
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
-	  sh 'ls -l'   
+	  sh 'ls -l' 
+	    println {jwt_key_file}
 	stage('Get CLI from Docker'){
 		try{
                             sh 'docker pull salesforce/salesforcedx:latest-slim'
-                            sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim -v ${jwt_key_file}:${jwt_key_file}:ro bash'
-			    
+                            sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
                             sh 'docker ps'   
                            } 
                         catch(Error) {
@@ -38,7 +38,7 @@ node {
                              sh 'docker stop SFCLI'
                              sh 'docker rm SFCLI'
                              sh 'docker pull salesforce/salesforcedx:latest-slim'
-                             sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim -v ${jwt_key_file}:${jwt_key_file}:ro bash'
+                             sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
                              sh 'docker ps'
                              
                            }
