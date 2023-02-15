@@ -27,8 +27,8 @@ node {
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
 	  sh 'ls -l' 
 	  sh 'pwd'
-	  sh "cp ${jwt_key_file} /var/lib/jenkins/workspace/server.key"
-	  def KEY_PATH = '/var/lib/jenkins/workspace/server.key'
+	  sh "cp ${jwt_key_file} /var/lib/jenkins/server.key"
+	  def KEY_PATH = '/var/lib/jenkins/server.key'
 	  println {KEY_PATH}
 	stage('Get CLI from Docker'){
 		try{
