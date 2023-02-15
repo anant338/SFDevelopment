@@ -18,6 +18,7 @@ node {
     println SFDC_HOST
     println CONNECTED_APP_CONSUMER_KEY
    // def toolbelt = tool 'toolbelt'
+   
 
     stage('checkout source') {
         // when running in multi-branch job, one must issue this command
@@ -30,37 +31,38 @@ node {
 	  sh "cp ${jwt_key_file} /var/lib/jenkins/server.key"
 	  def KEY_PATH = '/var/lib/jenkins/server.key'
 	  println {KEY_PATH}
-	stage('Get CLI from Docker'){
-		try{
-                            sh 'docker pull salesforce/salesforcedx:latest-slim'
-                            sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
-                            sh 'docker ps'   
-                           } 
-                        catch(Error) {
-                             echo 'Salesforce CLI is not running'
-                             sh 'docker stop SFCLI'
-                             sh 'docker rm SFCLI'
-                             sh 'docker pull salesforce/salesforcedx:latest-slim'
-                             sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
-                             sh 'docker ps'
+	//stage('Get CLI from Docker'){
+	//	try{
+        //                    sh 'docker pull salesforce/salesforcedx:latest-slim'
+       //                     sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
+       //                     sh 'docker ps'   
+       //                    } 
+       //                 catch(Error) {
+        //                     echo 'Salesforce CLI is not running'
+        //                     sh 'docker stop SFCLI'
+        //                     sh 'docker rm SFCLI'
+         //                    sh 'docker pull salesforce/salesforcedx:latest-slim'
+         //                    sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
+          //                   sh 'docker ps'
                              
-                           }
+          //                 }
 		
-	}
-	  //  stage('Install CLI'){
-	  //	   sh 'wget https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.99.1-d7efd75-linux-amd64.tar.xz'
-	  //	   sh 'tar -xvJf sfdx-v5.9.9-d42cf65-linux-amd64.tar.xz'
-	  //	   sh 'cd sfdx'
-	  //	   sh './install'
-	  //	   sh 'sfdx version'
+	//}
+	    stage('Install CLI'){
+	  	   //sh 'wget https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.99.1-d7efd75-linux-amd64.tar.xz'
+	  	   //sh 'tar -xvJf sfdx-v5.9.9-d42cf65-linux-amd64.tar.xz'
+	  	   //sh 'cd sfdx/bin'
+	  	   //sh './install'
+		    tool name: 'sfdx', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+	  	   sh 'sfdx version'
 		    
-	 //   }
+	    }
 	    
 	    stage('Test SFDXinstallation'){
-		    sh 'docker exec -i SFCLI bin/bash sfdx version'
+		   // sh 'docker exec -i SFCLI bin/bash sfdx version'
 		   
-		    rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${KEY_PATH} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-		  //  rc = sh returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+		  //  rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${KEY_PATH} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+		  rc = sh returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 	    }
        // stage('Deploye Code') {
        //     if (isUnix()) {
