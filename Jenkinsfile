@@ -46,15 +46,15 @@ node {
 		    bat 'docker exec -i SFCLI bin/bash sfdx version'
 		    rc = bat returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 	    }
-        stage('Deploye Code') {
-            if (isUnix()) {
-                rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-            }else{
-                 rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-            }
-            if (rc != 0) { error 'hub org authorization failed' }
+       // stage('Deploye Code') {
+       //     if (isUnix()) {
+      //          rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+      //      }else{
+      //           rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+      //      }
+      //      if (rc != 0) { error 'hub org authorization failed' }
 
-			println rc
+	//		println rc
 			
 			// need to pull out assigned username
 		//	if (isUnix()) {
@@ -66,6 +66,6 @@ node {
            // printf rmsg
           //  println('Hello from a Job DSL script!')
           //  println(rmsg)
-        }
+      //  }
     }
 }
