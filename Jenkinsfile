@@ -29,7 +29,7 @@ node {
 	stage('Get CLI from Docker'){
 		try{
                             sh 'docker pull salesforce/salesforcedx:latest-slim'
-                            sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim -e ${jwt_key_file} -v ${jwt_key_file}:${jwt_key_file}:ro bash'
+                            sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim -v ${jwt_key_file}:${jwt_key_file}:ro bash'
 			    
                             sh 'docker ps'   
                            } 
@@ -38,7 +38,7 @@ node {
                              sh 'docker stop SFCLI'
                              sh 'docker rm SFCLI'
                              sh 'docker pull salesforce/salesforcedx:latest-slim'
-                             sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim -e ${jwt_key_file} -v ${jwt_key_file}:${jwt_key_file}:ro bash'
+                             sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim -v ${jwt_key_file}:${jwt_key_file}:ro bash'
                              sh 'docker ps'
                              
                            }
