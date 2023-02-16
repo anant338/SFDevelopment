@@ -8,8 +8,8 @@ node {
 
     def HUB_ORG='anantfromdbg@gmail.com'
     def SFDC_HOST = 'https://login.salesforce.com'
-    def JWT_KEY_CRED_ID = '7d0dbdb9-c9ee-4524-9c3a-e0d07113dad7'
-    //def JWT_KEY_CRED_ID ='5ec79b74-2c7e-4e7b-b179-832d06329872'
+    //def JWT_KEY_CRED_ID = '7d0dbdb9-c9ee-4524-9c3a-e0d07113dad7'
+    def JWT_KEY_CRED_ID ='5ec79b74-2c7e-4e7b-b179-832d06329872'
     def CONNECTED_APP_CONSUMER_KEY='3MVG9kBt168mda_8xf5Uf0E_8NG68WIoOcS8YF6mjB9nimUO4rZuDhneuZqE3B1yyv4hQI1dnvZjxUW2gxQhK'
 
     println 'KEY IS' 
@@ -49,12 +49,12 @@ node {
 		
 	//}
 	    stage('Install CLI'){
-	  	   bat 'wget https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.99.1-d7efd75-linux-amd64.tar.xz'
-	  	   bat 'tar -xvJf sfdx-v5.9.9-d42cf65-linux-amd64.tar.xz'
-	  	   bat 'cd sfdx/bin'
-	  	   bat './install'
+	  	   sh 'wget https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.99.1-d7efd75-linux-amd64.tar.xz'
+	  	   sh 'tar -xvJf sfdx-v5.9.9-d42cf65-linux-amd64.tar.xz'
+	  	   sh 'cd sfdx/bin'
+	  	   sh './install'
 		   // tool name: 'sfdx', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
-	  	   bat 'sfdx version'
+	  	   sh 'sfdx version'
 		    
 	    }
 	    
@@ -62,7 +62,7 @@ node {
 		   // sh 'docker exec -i SFCLI bin/bash sfdx version'
 		   
 		  //  rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${KEY_PATH} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-		  rc = bat returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+		  rc = sh returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 	    }
        // stage('Deploye Code') {
        //     if (isUnix()) {
