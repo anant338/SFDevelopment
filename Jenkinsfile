@@ -51,7 +51,8 @@ node {
 	    stage('Install node.js'){
 		  // sh 'curl -sL https://rpm.nodesource.com/setup_16.x | bash -'
                   // sh 'yum -y install nodejs'
-		    sh 'sudo apt install nodejs'
+		  //  sh 'sudo apt install nodejs'
+		   sh 'curl -sL https://git.io/n-install | bash -s -- -y'
                    sh 'npm install -g npm'
 	    }
 	    stage('Install CLI'){
