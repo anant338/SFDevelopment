@@ -48,7 +48,7 @@ node {
           //                 }
 		
 	//}
-	    Stage('Install node.js'){
+	    stage('Install node.js'){
 		   sh 'curl -sL https://rpm.nodesource.com/setup_11.x | bash -'
                    sh 'yum -y install nodejs'
                    sh 'npm install -g npm'
@@ -72,6 +72,8 @@ node {
 	    }
 	    stage('Uninstall CLI'){
 		    sh 'npm uninstall --global sfdx-cli'
+		    sh 'npm uninstall -g npm'
+		    sh 'yum -y uninstall nodejs'
 	    }
        // stage('Deploye Code') {
        //     if (isUnix()) {
