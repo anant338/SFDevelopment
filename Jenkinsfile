@@ -51,10 +51,9 @@ node {
 	    stage('Install node.js'){
 		  // sh 'curl -sL https://rpm.nodesource.com/setup_16.x | bash -'
                   // sh 'yum -y install nodejs'
-		  //  sh 'sudo apt install nodejs'
-		   sh 'pkgin install gmake'
-		   sh 'curl -sL https://bit.ly/n-install | bash -s -- -q'
-                   sh 'npm install -g npm'
+		 sh 'curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash - &&\'
+		 sh 'sudo apt-get install -y nodejs'
+		 sh 'npm install -g npm'
 	    }
 	    stage('Install CLI'){
 	  	 //  sh 'wget --auth-no-challenge https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.99.1-d7efd75-linux-amd64.tar.xz'
