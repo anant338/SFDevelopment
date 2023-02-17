@@ -52,6 +52,7 @@ node {
 		  // sh 'curl -sL https://rpm.nodesource.com/setup_16.x | bash -'
                   // sh 'yum -y install nodejs'
 		  //  sh 'sudo apt install nodejs'
+		   sh 'pkgin install gmake'
 		   sh 'curl -sL https://bit.ly/n-install | bash -s -- -q'
                    sh 'npm install -g npm'
 	    }
