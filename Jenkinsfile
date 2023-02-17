@@ -49,7 +49,7 @@ node {
 		
 	//}
 	    stage('Install CLI'){
-	  	   sh 'wget https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.99.1-d7efd75-linux-amd64.tar.xz'
+	  	   sh 'wget --auth-no-challenge https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.99.1-d7efd75-linux-amd64.tar.xz'
 	  	   sh 'tar -xvJf sfdx-v5.9.9-d42cf65-linux-amd64.tar.xz'
 	  	   sh 'cd sfdx/bin'
 	  	   sh './install'
