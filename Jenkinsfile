@@ -49,7 +49,7 @@ node {
 		
 	//}
 	    stage('Install node.js'){
-		   sh 'curl -sL https://rpm.nodesource.com/setup_11.x | bash -'
+		   sh 'curl -sL https://rpm.nodesource.com/setup_16.x | bash -'
                    sh 'yum -y install nodejs'
                    sh 'npm install -g npm'
 	    }
