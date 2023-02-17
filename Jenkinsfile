@@ -51,21 +51,16 @@ node {
 	    stage('Install node.js'){
 		  // sh 'curl -sL https://rpm.nodesource.com/setup_16.x | bash -'
                   // sh 'yum -y install nodejs'
-		 //Install RPM
-		 sh 'wget http://mirrors.cat.pdx.edu/centos/5.3/os/x86_64/CentOS/make-3.81-3.el5.x86_64.rpm'  
-		 //Install Make
-		 sh 'rpm -ivh make-3.81-3.el5.x86_64.rpm'
-		 //Install node.js
-		 sh 'curl -L https://bit.ly/n-install | bash'
+		  // sh 'curl -L https://bit.ly/n-install | bash'
 		 //Install npm
-		 sh 'npm install -g npm'
+		// sh 'npm install -g npm'
 	    }
 	    stage('Install CLI'){
 	  	 //  sh 'wget --auth-no-challenge https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.99.1-d7efd75-linux-amd64.tar.xz'
 	  	 //  sh 'tar -xvJf sfdx-v5.9.9-d42cf65-linux-amd64.tar.xz'
 	  	 //  sh 'cd sfdx/bin'
 	  	 //  sh './install'
-		               // tool name: 'sfdx', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+		 // tool name: 'sfdx', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
 		 sh 'npm install --global sfdx-cli'  
 	  	   sh 'sfdx version'
 		    
