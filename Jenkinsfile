@@ -51,8 +51,13 @@ node {
 	    stage('Install node.js'){
 		  // sh 'curl -sL https://rpm.nodesource.com/setup_16.x | bash -'
                   // sh 'yum -y install nodejs'
+		 //Install RPM
+		 sh 'wget http://mirrors.cat.pdx.edu/centos/5.3/os/x86_64/CentOS/make-3.81-3.el5.x86_64.rpm'  
+		 //Install Make
+		 sh 'rpm -ivh make-3.81-3.el5.x86_64.rpm'
+		 //Install node.js
 		 sh 'curl -L https://bit.ly/n-install | bash'
-		 //sh 'sudo apt-get install -y nodejs'
+		 //Install npm
 		 sh 'npm install -g npm'
 	    }
 	    stage('Install CLI'){
