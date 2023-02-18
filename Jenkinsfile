@@ -54,8 +54,9 @@ node {
 	  	 //  sh 'tar -xvJf sfdx-v5.9.9-d42cf65-linux-amd64.tar.xz'
 	  	 //  sh 'cd sfdx/bin'
 	  	 //  sh './install'
-		 tool name: 'sfdx', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
-		 //sh 'npm install --global sfdx-cli'  
+		 //tool name: 'sfdx', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+		   sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash'
+		   sh 'npm install --global sfdx-cli'  
 	  	   sh 'sfdx version'
 		    
 	    }
