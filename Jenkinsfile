@@ -58,7 +58,7 @@ node {
 		 //  sh'nvm install-latest-npm'
 		//   sh 'npm install --global sfdx-cli'  
 		 //  sh 'cd /var/lib/jenkins/sfdx/bin'
-	  	   sh 'sfdx version'
+	  	   sh '/var/lib/jenkins/sfdx/bin/sfdx version'
 		    
 	    }
 	    
@@ -66,13 +66,9 @@ node {
 		   // sh 'docker exec -i SFCLI bin/bash sfdx version'
 		   
 		  //  rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${KEY_PATH} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-		  rc = sh returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+		  rc = sh returnStatus: true, script: "/var/lib/jenkins/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 	    }
-	    stage('Uninstall CLI'){
-		    sh 'npm uninstall --global sfdx-cli'
-		    sh 'npm uninstall -g npm'
-		    sh 'yum -y uninstall nodejs'
-	    }
+	    
        // stage('Deploye Code') {
        //     if (isUnix()) {
       //          rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
