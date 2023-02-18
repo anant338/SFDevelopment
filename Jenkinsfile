@@ -50,12 +50,10 @@ node {
 	//}
 	    
 	    stage('Install CLI'){
-	  	 //  sh 'wget --auth-no-challenge https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.99.1-d7efd75-linux-amd64.tar.xz'
-	  	 //  sh 'tar -xvJf sfdx-v5.9.9-d42cf65-linux-amd64.tar.xz'
-	  	 //  sh 'cd sfdx/bin'
-	  	 //  sh './install'
+	  	
 		 //tool name: 'sfdx', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
 		   sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash'
+		   sh'nvm install-latest-npm'
 		   sh 'npm install --global sfdx-cli'  
 	  	   sh 'sfdx version'
 		    
