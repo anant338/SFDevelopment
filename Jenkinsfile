@@ -55,8 +55,8 @@ node {
 		  //Install nvm(node version manager) to avaoid EACCESS//
 		 //  sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash'
 		 //  sh 'export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-		   sh'nvm install-latest-npm'
-		   sh 'npm install --global sfdx-cli'  
+		 //  sh'nvm install-latest-npm'
+		//   sh 'npm install --global sfdx-cli'  
 	  	   sh 'sfdx version'
 		    
 	    }
