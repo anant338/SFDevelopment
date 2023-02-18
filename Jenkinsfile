@@ -57,6 +57,7 @@ node {
 		 //  sh 'export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
 		 //  sh'nvm install-latest-npm'
 		//   sh 'npm install --global sfdx-cli'  
+		 //  sh 'cd /var/lib/jenkins/sfdx/bin'
 	  	   sh 'sfdx version'
 		    
 	    }
