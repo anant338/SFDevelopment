@@ -61,6 +61,7 @@ node {
 	  	 //  sh 'cd sfdx/bin'
 	  	 //  sh './install'
 		 // tool name: 'sfdx', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+		 sh 'npm install -g npm'
 		 sh 'npm install --global sfdx-cli'  
 	  	   sh 'sfdx version'
 		    
