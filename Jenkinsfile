@@ -52,7 +52,9 @@ node {
 	    stage('Install CLI'){
 	  	
 		 //tool name: 'sfdx', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+		  //Install nvm(node version manager) to avaoid EACCESS//
 		   sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash'
+		   sh 'export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
 		   sh'nvm install-latest-npm'
 		   sh 'npm install --global sfdx-cli'  
 	  	   sh 'sfdx version'
