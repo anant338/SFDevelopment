@@ -58,7 +58,11 @@ node {
 		 //  sh'nvm install-latest-npm'
 		//   sh 'npm install --global sfdx-cli'  
 		 //  sh 'cd /var/lib/jenkins/sfdx/bin'
-	  	   sh '/var/lib/jenkins/sfdx/bin/sfdx version'
+	  	 //  sh '/var/lib/jenkins/sfdx/bin/sfdx version'
+		      sh 'wget https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz'
+                      sh 'mkdir ~/sfdx'
+                      sh 'tar xJf sfdx-linux-x64.tar.xz -C ~/sfdx --strip-components 1'
+		      sh '~/sfdx/bin/sfdx version'
 		    
 	    }
 	    
