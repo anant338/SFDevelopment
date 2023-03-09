@@ -36,9 +36,6 @@ node {
 	    }
 	    
 	    stage('Test SFDXinstallation'){
-		   // sh 'docker exec -i SFCLI bin/bash sfdx version'
-		   
-		  //  rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${KEY_PATH} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 		  //rc = sh returnStatus: true, script: "/var/lib/jenkins/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 		  rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"  
 	    }
@@ -65,7 +62,7 @@ node {
           //  println(rmsg)
       //  }
 	    stage('Uninstall CLI'){
-		   sh 'sudo rm -rf ~/sfdx' 
+		   sh 'rm -rf ~/sfdx' 
 	    }
     }
 }
