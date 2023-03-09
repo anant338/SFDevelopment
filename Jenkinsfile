@@ -28,7 +28,7 @@ node {
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
 	    stage('Install CLI'){
 		    
-		      sh 'wget -q --show-progress https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz'
+		      sh 'wget -q https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz'
                       sh 'mkdir ~/sfdx'
                       sh 'tar xJf sfdx-linux-x64.tar.xz -C ~/sfdx --strip-components 1'
 		      sh '~/sfdx/bin/sfdx version'
