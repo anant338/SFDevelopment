@@ -25,40 +25,9 @@ node {
         checkout scm
     }
 
-    withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
-	  //sh 'ls -l' 
-	  //sh 'pwd'
-	  //sh "cp ${jwt_key_file} /var/lib/jenkins/server.key"
-	  //def KEY_PATH = '/var/lib/jenkins/server.key'
-	 // println {KEY_PATH}
-	//stage('Get CLI from Docker'){
-	//	try{
-        //                    sh 'docker pull salesforce/salesforcedx:latest-slim'
-       //                     sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
-       //                     sh 'docker ps'   
-       //                    } 
-       //                 catch(Error) {
-        //                     echo 'Salesforce CLI is not running'
-        //                     sh 'docker stop SFCLI'
-        //                     sh 'docker rm SFCLI'
-         //                    sh 'docker pull salesforce/salesforcedx:latest-slim'
-         //                    sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
-          //                   sh 'docker ps'
-                             
-          //                 }
-		
-	//}
-	    
+    withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
 	    stage('Install CLI'){
-	  	
-		 //tool name: 'sfdx', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
-		  //Install nvm(node version manager) to avaoid EACCESS//
-		 //  sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash'
-		 //  sh 'export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-		 //  sh'nvm install-latest-npm'
-		//   sh 'npm install --global sfdx-cli'  
-		 //  sh 'cd /var/lib/jenkins/sfdx/bin'
-	  	 //  sh '/var/lib/jenkins/sfdx/bin/sfdx version'
+		    
 		      sh 'wget https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz'
                       sh 'mkdir ~/sfdx'
                       sh 'tar xJf sfdx-linux-x64.tar.xz -C ~/sfdx --strip-components 1'
@@ -70,7 +39,8 @@ node {
 		   // sh 'docker exec -i SFCLI bin/bash sfdx version'
 		   
 		  //  rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${KEY_PATH} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-		  rc = sh returnStatus: true, script: "/var/lib/jenkins/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+		  //rc = sh returnStatus: true, script: "/var/lib/jenkins/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+		  rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"  
 	    }
 	    
        // stage('Deploye Code') {
