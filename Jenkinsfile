@@ -64,5 +64,8 @@ node {
           //  println('Hello from a Job DSL script!')
           //  println(rmsg)
       //  }
+	    stage('Uninstall CLI'){
+		   sh 'sudo rm -rf ~/sfdx' 
+	    }
     }
 }
