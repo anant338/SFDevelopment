@@ -24,17 +24,7 @@ node {
         // when running in multi-branch job, one must issue this command
         checkout scm
     }
-	stage('Code Quality Check'){
-		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud') {
-               sh "${tool("SonarQube")}/bin/sonar-scanner \
-		-Dsonar.organization=anant338 \
-                -Dsonar.projectKey=anant338_SFDevelopment \
-		-Dsonar.language=apex \
-                -Dsonar.sources=. \
-                -Dsonar.tests=. \
-	        -Dsonar.apex.coverage.reportPath=./test-result-codecoverage.json  "
-             }
-	}
+	
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
 	    stage('Install CLI'){
@@ -50,6 +40,23 @@ node {
 		  //rc = sh returnStatus: true, script: "/var/lib/jenkins/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 		  rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"  
 	    }
+	    
+	    Stage('Run Test Classes'){
+		 rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:apex:test:run --testlevel RunLocalTests -d /test-result-codecoverage.json"  
+	    }
+	    
+	    stage('Code Quality Check'){
+		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud') {
+               sh "${tool("SonarQube")}/bin/sonar-scanner \
+		-Dsonar.organization=anant338 \
+                -Dsonar.projectKey=anant338_SFDevelopment \
+		-Dsonar.language=apex \
+                -Dsonar.sources=. \
+                -Dsonar.tests=. \
+	        -Dsonar.apex.coverage.reportPath=./test-result-codecoverage.json  "
+             }
+	}
+	    
 	    
        // stage('Deploye Code') {
        //     if (isUnix()) {
