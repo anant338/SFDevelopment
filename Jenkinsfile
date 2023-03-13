@@ -30,7 +30,7 @@ node {
 		-Dsonar.organization=anant338 \
                 -Dsonar.projectKey=anant338_SFDevelopment \
 		-Dsonar.language=apex \
-		-Dsonar.inclusions= *.cls,*.trigger \
+		-Dsonar.inclusions= **/*.cls \
                 -Dsonar.sources=. \
                 -Dsonar.tests=. \
 	        -Dsonar.apex.coverage.reportPath=test-result-codecoverage.json \
