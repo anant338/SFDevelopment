@@ -29,7 +29,7 @@ node {
                sh "${tool("SonarQube")}/bin/sonar-scanner \
                 -Dsonar.projectKey=. \
                 -Dsonar.sources=. \
-                -Dsonar.tests=. \ "
+                -Dsonar.tests=. "
                   sh 'mvn clean package sonar:sonar'
                 }
 	}
