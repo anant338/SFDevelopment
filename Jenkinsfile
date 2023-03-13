@@ -28,7 +28,7 @@ node {
 		//Required Sonar Host URL
 		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud'){
 	         sh "${tool("SonarQube")}/bin/sonar-scanner \
-                // -Dsonar.login= 00185c55a2c17131016046bace094e7db53dfc09
+                
                 //Project Key and Project name 
                  -Dsonar.projectKey= anant338_SFDevelopment
                  -Dsonar.projectName= SFDevelopment
