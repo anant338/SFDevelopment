@@ -41,7 +41,7 @@ node {
 		  rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"  
 	    }
 	    
-	    Stage('Run Test Classes'){
+	    stage('Run Test Classes'){
 		 rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:apex:test:run --testlevel RunLocalTests -d /test-result-codecoverage.json"  
 	    }
 	    
