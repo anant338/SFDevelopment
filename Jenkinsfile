@@ -27,11 +27,11 @@ node {
 	stage('Code Quality Check'){
 		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud') {
                sh "${tool("SonarQube")}/bin/sonar-scanner \
-                -Dsonar.projectKey=. \
+                -Dsonar.projectKey=anant338_SFDevelopment \
                 -Dsonar.sources=. \
                 -Dsonar.tests=. \
 	        -Dsonar.apex.coverage.reportPath=test-result-codecoverage.json \
-		-X "
+		-Dsonar.verbose=true "
              }
 	}
 
