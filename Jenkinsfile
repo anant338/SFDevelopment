@@ -38,26 +38,27 @@ node {
 		    
 	    }
 	    
-	    stage('Authorize the Org'){
+	    stage('Run Test'){
 		  //rc = sh returnStatus: true, script: "/var/lib/jenkins/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 		  rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"  
+	          rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:apex:test:run --testlevel RunLocalTests --username ${HUB_ORG} -d /test-result-codecoverage.json"  
 	    }
 	    
-	    stage('Run Test Classes'){
-		 rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:apex:test:run --testlevel RunLocalTests -d /test-result-codecoverage.json"  
-	    }
+	    //stage('Run Test Classes'){
+	    //	 rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:apex:test:run --testlevel RunLocalTests --username ${HUB_ORG} -d /test-result-codecoverage.json"  
+	   //  }
 	    
-	    stage('Code Quality Check'){
-		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud') {
-               sh "${tool("SonarQube")}/bin/sonar-scanner \
-		-Dsonar.organization=anant338 \
-                -Dsonar.projectKey=anant338_SFDevelopment \
-		-Dsonar.language=apex \
-                -Dsonar.sources=. \
-                -Dsonar.tests=. \
-	        -Dsonar.apex.coverage.reportPath=./test-result-codecoverage.json  "
-             }
-	}
+	 //   stage('Code Quality Check'){
+	//	withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud') {
+        //       sh "${tool("SonarQube")}/bin/sonar-scanner \
+	//	-Dsonar.organization=anant338 \
+       //         -Dsonar.projectKey=anant338_SFDevelopment \
+	//	-Dsonar.language=apex \
+        //        -Dsonar.sources=. \
+        //        -Dsonar.tests=. \
+	//        -Dsonar.apex.coverage.reportPath=./test-result-codecoverage.json  "
+        //     }
+	// }
 	    
 	    
        // stage('Deploye Code') {
