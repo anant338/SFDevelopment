@@ -32,7 +32,6 @@ node {
                 -Dsonar.tests=. \
                 -Dsonar.exclusions=**/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls \
                 -Dsonar.coverage.exclusions=src/classes/*__* , **/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls \
-		-Dsonar.apex.file.suffixes = .cls , .trigger \
                 -Dsonar.language= Apex "
                   sh 'mvn clean package sonar:sonar'
                 }
