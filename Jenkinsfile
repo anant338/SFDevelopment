@@ -26,7 +26,8 @@ node {
     }
 	stage('Code Quality Check'){
 		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud') {
-               sh "${tool("SonarQube")}/bin/sonar-scanner \
+			//${tool("SonarQube")}/bin/
+               sh "sonar-scanner \
                 -Dsonar.projectKey=. \
                 -Dsonar.sources=. \
                 -Dsonar.tests=. \
