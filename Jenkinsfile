@@ -29,8 +29,9 @@ node {
                sh "${tool("SonarQube")}/bin/sonar-scanner \
                 -Dsonar.projectKey=. \
                 -Dsonar.sources=. \
-                -Dsonar.tests=. "
-                  sh 'mvn clean package sonar:sonar'
+                -Dsonar.tests=. \
+	        -Dsonar.apex.coverage.reportPath=test-result-codecoverage.json "
+                  
                 }
 	}
 
