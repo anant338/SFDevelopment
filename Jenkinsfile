@@ -30,8 +30,6 @@ node {
                 -Dsonar.projectKey=. \
                 -Dsonar.sources=. \
                 -Dsonar.tests=. \
-                -Dsonar.exclusions=**/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls \
-                -Dsonar.coverage.exclusions=src/classes/*__* , **/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls \
                 -Dsonar.language= Apex "
                   sh 'mvn clean package sonar:sonar'
                 }
