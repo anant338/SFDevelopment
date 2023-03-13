@@ -32,8 +32,7 @@ node {
 		-Dsonar.language=apex \
                 -Dsonar.sources=. \
                 -Dsonar.tests=. \
-	        -Dsonar.apex.coverage.reportPath=test-result-codecoverage.json \
-		-Dsonar.verbose=true "
+	        -Dsonar.apex.coverage.reportPath=test-result-codecoverage.json  "
              }
 	}
 
