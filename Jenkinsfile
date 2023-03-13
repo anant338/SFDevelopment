@@ -25,34 +25,17 @@ node {
         checkout scm
     }
 	stage('Code Quality Check'){
-		//Required Sonar Host URL
-		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud'){
-	         sh "${tool("SonarQube")}/bin/sonar-scanner \
-                
-                //Project Key and Project name 
-                 -Dsonar.projectKey= anant338_SFDevelopment
-                 -Dsonar.projectName= SFDevelopment
-                //Should be changed for every version release
-                //-Dsonar.projectVersion=
-			 
-               //Path to the parent source code directory.
-               //Example for multiple directory option, sonar.sources=srcDir1,srcDir2
-              //-Dsonar.sources= 
-              //Files to be excluded from sonar check
-             // -Dsonar.exclusions= **/*Test.cls
-	    //  -Dsonar.coverage.exclusions = src/classes/*__* , **/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls 
-	   //   -Dsonar.apex.file.suffixes = .cls , .trigger
-	    //  -Dsonar.apex.coverage.reportPath = force-app/main/default/test-result-codecoverage.json
-	       
-	       
-              //Language
-              -Dsonar.language= Apex
-	      
-             //Encoding of the source files
-              -Dsonar.sourceEncoding=UTF-8
-		
-             sh 'mvn clean package sonar:sonar'
-	     }
+		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud') {
+               sh "${tool("SonarQube")}/bin/sonar-scanner \
+                -Dsonar.projectKey=. \
+                -Dsonar.sources=. \
+                -Dsonar.tests=. \
+                -Dsonar.exclusions=**/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls \
+                -Dsonar.coverage.exclusions=src/classes/*__* , **/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls \
+		-Dsonar.apex.file.suffixes = .cls , .trigger \
+                -Dsonar.language= Apex "
+                  sh 'mvn clean package sonar:sonar'
+                }
 	}
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
