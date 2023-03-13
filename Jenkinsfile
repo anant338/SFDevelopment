@@ -26,7 +26,7 @@ node {
     }
 	stage('Code Quality Check'){
 		//Required Sonar Host URL
-                 -Dsonar.host.url= https://sonarcloud.io/projects
+		withSonarQubeEnv('My SonarQube Server') {
                  -Dsonar.login= 00185c55a2c17131016046bace094e7db53dfc09
                 //Project Key and Project name 
                  -Dsonar.projectKey= anant338_SFDevelopment
@@ -42,13 +42,16 @@ node {
 	      -Dsonar.coverage.exclusions = src/classes/*__* , **/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls 
 	      -Dsonar.apex.file.suffixes = .cls , .trigger
 	      -Dsonar.apex.coverage.reportPath = force-app/main/default/test-result-codecoverage.json
-	      
+	       
+	       
               //Language
               -Dsonar.language= Apex
 	      
              //Encoding of the source files
               -Dsonar.sourceEncoding=UTF-8
 		
+             sh 'mvn clean package sonar:sonar'
+	     }
 	}
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
