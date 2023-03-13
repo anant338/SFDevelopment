@@ -24,6 +24,32 @@ node {
         // when running in multi-branch job, one must issue this command
         checkout scm
     }
+	stage('Code Quality Check'){
+		//Required Sonar Host URL
+                 sonar.host.url= https://sonarcloud.io/projects
+                 sonar.login= 00185c55a2c17131016046bace094e7db53dfc09
+                //Project Key and Project name 
+                 sonar.projectKey= anant338_SFDevelopment
+                 sonar.projectName= SFDevelopment
+                //Should be changed for every version release
+                //sonar.projectVersion=
+			 
+               //Path to the parent source code directory.
+               //Example for multiple directory option, sonar.sources=srcDir1,srcDir2
+              //sonar.sources= 
+              //Files to be excluded from sonar check
+              sonar.exclusions= **/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls 
+	      sonar.coverage.exclusions = src/classes/*__* , **/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls 
+	      sonar.apex.file.suffixes = .cls , .trigger
+	      sonar.apex.coverage.reportPath = force-app/main/default/test-result-codecoverage.json
+	      
+              //Language
+              sonar.language= Apex
+	      
+             //Encoding of the source files
+              sonar.sourceEncoding=UTF-8
+		
+	}
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
 	    stage('Install CLI'){
