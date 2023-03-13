@@ -29,6 +29,7 @@ node {
                sh "${tool("SonarQube")}/bin/sonar-scanner \
 		-Dsonar.organization=anant338 \
                 -Dsonar.projectKey=anant338_SFDevelopment \
+		-Dsonar.language=apex \
                 -Dsonar.sources=. \
                 -Dsonar.tests=. \
 	        -Dsonar.apex.coverage.reportPath=test-result-codecoverage.json \
