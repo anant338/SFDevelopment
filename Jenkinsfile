@@ -30,9 +30,9 @@ node {
                 -Dsonar.projectKey=. \
                 -Dsonar.sources=. \
                 -Dsonar.tests=. \
-	        -Dsonar.apex.coverage.reportPath=test-result-codecoverage.json "
-                  
-                }
+	        -Dsonar.apex.coverage.reportPath=test-result-codecoverage.json
+		-X "
+             }
 	}
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
