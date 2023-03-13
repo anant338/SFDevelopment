@@ -38,10 +38,10 @@ node {
                //Example for multiple directory option, sonar.sources=srcDir1,srcDir2
               //-Dsonar.sources= 
               //Files to be excluded from sonar check
-              -Dsonar.exclusions= **/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls 
-	      -Dsonar.coverage.exclusions = src/classes/*__* , **/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls 
-	      -Dsonar.apex.file.suffixes = .cls , .trigger
-	      -Dsonar.apex.coverage.reportPath = force-app/main/default/test-result-codecoverage.json
+             // -Dsonar.exclusions= **/*Test.cls
+	    //  -Dsonar.coverage.exclusions = src/classes/*__* , **/*Test.cls , **/*test.cls , **/*Test*.cls , **/*test*.cls 
+	   //   -Dsonar.apex.file.suffixes = .cls , .trigger
+	    //  -Dsonar.apex.coverage.reportPath = force-app/main/default/test-result-codecoverage.json
 	       
 	       
               //Language
