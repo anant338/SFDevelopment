@@ -46,8 +46,8 @@ node {
        
             rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
      }
-	    stage('Install CLI'){
-		     // rc = sh returnStatus: true, script: "-d ~/sfdx"
+	  /*  stage('Install CLI'){
+		    
 		     if (fileExists('/var/lib/jenkins/sfdx')) 
 		       {
 			   sh '~/sfdx/bin/sfdx version'
@@ -61,6 +61,7 @@ node {
 		      
 		    
 	    }
+	    
 	    stage('Authorize the org'){
             //rc = sh returnStatus: true, script: "/var/lib/jenkins/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"      
               rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"  
@@ -81,7 +82,7 @@ node {
 	       -Dsonar.apex.coverage.reportPath=./test-result-codecoverage.json  "
            }
 	 }
-	    
+	*/    
 	    
        // stage('Deploye Code') {
        //     if (isUnix()) {
