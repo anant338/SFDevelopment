@@ -26,7 +26,7 @@ node {
 	
 
    // withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
-	withcredentials(credentialsId:'6fb7faa1-e157-4151-84e6-d298a8590ed1', variable: 'jwt_key_file'){
+	withCredentials([string(credentialsId: '6fb7faa1-e157-4151-84e6-d298a8590ed1', variable: 'jwt_key_file')]){
 	    stage('Run CLI on Docker image'){
 		    	    
         try{
