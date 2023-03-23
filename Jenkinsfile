@@ -49,7 +49,7 @@ node {
        stage('Test Installation'){
 	    sh 'pwd' 
        
-            rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${id_key} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+            rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${pwd} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 	    }
 	    
 	  /*  stage('Install CLI'){
