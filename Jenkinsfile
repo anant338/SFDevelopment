@@ -29,7 +29,7 @@ node {
 	    stage('Run CLI on Docker image'){
         try{
                             sh 'docker pull salesforce/salesforcedx:latest-slim'
-		            sh 'docker run -i -d salesforce/salesforcedx:latest-slim -v ${jwt_key_file}:~/jwt_key_file --name SFCLI bash'
+		            sh 'docker run -i -d salesforce/salesforcedx:latest-slim -v {jwt_key_file}:~/jwt_key_file --name SFCLI bash'
                             sh 'docker ps'   
                            } 
                         catch(Error) {
@@ -37,7 +37,7 @@ node {
                              sh 'docker stop SFCLI'
                              sh 'docker rm SFCLI'
                              sh 'docker pull salesforce/salesforcedx:latest-slim'
-                             sh 'docker run -i -d salesforce/salesforcedx:latest-slim -v ${jwt_key_file}:~/jwt_key_file --name SFCLI bash'
+				sh 'docker run -i -d salesforce/salesforcedx:latest-slim -v {jwt_key_file}:~/jwt_key_file --name SFCLI bash'
                              sh 'docker ps'
 
        }}
