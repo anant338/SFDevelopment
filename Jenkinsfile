@@ -25,9 +25,9 @@ node {
     }
 	
 
-   // withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
-	withCredentials([string(credentialsId: '6fb7faa1-e157-4151-84e6-d298a8590ed1', variable: 'jwt_key_file')]){
-	    stage('Run CLI on Docker image'){
+   withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
+	//withCredentials([string(credentialsId: '6fb7faa1-e157-4151-84e6-d298a8590ed1', variable: 'jwt_key_file')]){
+	 /*   stage('Run CLI on Docker image'){
 		    	    
         try{
                             
@@ -52,8 +52,8 @@ node {
 	       
                    rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 	    }
-	    
-	  /*  stage('Install CLI'){
+	*/    
+	  stage('Install CLI'){
 		    
 		     if (fileExists('/var/lib/jenkins/sfdx')) 
 		       {
@@ -77,7 +77,7 @@ node {
 	          rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com -d /test-result-codecoverage.json"  
 	       }
 	    
-	    
+	   /* 
 	    stage('Code Quality Check'){
 		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud') {
                sh "${tool("SonarQube")}/bin/sonar-scanner \
