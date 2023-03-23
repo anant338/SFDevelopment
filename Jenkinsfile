@@ -27,7 +27,7 @@ node {
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) { 
 	    stage('Run CLI on Docker image'){
-		    sh 'pwd'
+		    
         try{
                             
 		            sh 'docker pull salesforce/salesforcedx:latest-slim'
@@ -43,13 +43,13 @@ node {
                              sh 'docker ps'
 
        }
-	                     sh 'pwd'
+	                    
 	    }
       
        stage('Test Installation'){
-	    sh 'pwd' 
-            sh 'ls -l'
-            rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${pwd} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+	           sh 'docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}'
+	       
+                   //rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${pwd} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 	    }
 	    
 	  /*  stage('Install CLI'){
