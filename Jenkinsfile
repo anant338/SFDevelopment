@@ -55,7 +55,7 @@ node {
 	    }
 	   
 	   stage('Run Test Classes'){
-		sh 'docker exec -i SFCLI bin/bash sfdx force:apex:test:run -l RunLocalTests -d /testresult -u ${HUB_ORG}' 
+		sh 'docker exec -i SFCLI bin/bash sfdx force:apex:test:run --targetusername ${HUB_ORG} --resultformat tap -l RunLocalTests -d /testresult' 
 		sh 'docker cp SFCLI:/testresult pwd'
 	   }
 	/*    
