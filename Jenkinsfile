@@ -53,6 +53,10 @@ node {
 	               sh 'docker cp ${jwt_key_file} SFCLI:/keyfile'
                    rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile /keyfile --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 	    }
+	   
+	   stage('Run Test Classes'){
+		sh 'docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests'   
+	   }
 	/*    
 	  stage('Install CLI'){
 		    
