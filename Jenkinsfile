@@ -79,10 +79,15 @@ node {
             //rc = sh returnStatus: true, script: "/var/lib/jenkins/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"      
               rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"  
 	    }
-	    stage('Run Test'){
-	          rc = sh returnStatus: true, script: "~/sfdx/bin/sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com -d /test-result-codecoverage.json"  
-	       }
-	    
+	    stage('Run Test Classes'){
+		try{
+		sh 'docker exec -i SFCLI bin/bash sfdx force:apex:test:run --targetusername anantfromdbg@gmail.com -l RunLocalTests -d /testresult' 
+		}
+		catch(Error){
+			echo Error
+		}
+		sh 'docker cp SFCLI:/testresult pwd'
+	   }
 	   
 	    stage('Code Quality Check'){
 		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud') {
