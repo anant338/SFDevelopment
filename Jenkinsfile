@@ -31,16 +31,16 @@ node {
 		    	    
         try{
                             
-		            sh 'docker pull salesforce/salesforcedx:latest-slim'
-		            sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
+		            sh 'docker pull salesforce/salesforcedx:latest-rc-slim'
+		            sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
                             sh 'docker ps'   
                            } 
                         catch(Error) {
                              echo 'Salesforce CLI is not running'
                              sh 'docker stop SFCLI'
                              sh 'docker rm SFCLI'
-                             sh 'docker pull salesforce/salesforcedx:latest-slim'
-			     sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
+                             sh 'docker pull salesforce/salesforcedx:latest-rc-slim'
+			     sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
                              sh 'docker ps'
 
        }
