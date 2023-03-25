@@ -31,17 +31,18 @@ node {
 		    	    
         try{
                             
-		            sh 'docker pull salesforce/salesforcedx:latest-rc-slim'
-		            sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
+		            sh 'docker pull salesforce/salesforcedx:latest-slim'
+		            sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
                             sh 'docker ps'   
                            } 
                         catch(Error) {
                              echo 'Salesforce CLI is not running'
                              sh 'docker stop SFCLI'
                              sh 'docker rm SFCLI'
-                             sh 'docker pull salesforce/salesforcedx:latest-rc-slim'
-			     sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-rc-slim bash'
+                             sh 'docker pull salesforce/salesforcedx:latest-slim'
+			     sh 'docker run --name SFCLI -i -d salesforce/salesforcedx:latest-slim bash'
                              sh 'docker ps'
+			     sh 'docker exec -i SFCLI bin/bash sfdx version'
 
        }
 	                    
@@ -55,8 +56,10 @@ node {
 	    }
 	   
 	   stage('Run Test Classes'){
-		sh 'docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com -d /testresult' 
+		rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com -d /testresult"
 		sh 'docker cp SFCLI:/testresult pwd'
+		 if (rc != 0) { error 'Test Class/Classes failed' }
+
 	   }
 	/*    
 	  stage('Install CLI'){
