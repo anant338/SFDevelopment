@@ -62,7 +62,7 @@ node {
 			   echo Error
 		   
 		   }
-			  // sh 'docker cp SFCLI:/testresult pwd'
+			   sh 'docker cp SFCLI:/testresult ~/testresult'
 		         //  sh 'cd pwd'
 		         //  sh 'ls'
 		           if (rc != 0) {
