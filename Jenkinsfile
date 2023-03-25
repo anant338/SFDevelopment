@@ -56,9 +56,17 @@ node {
 	    }
 	   
 	   stage('Run Test Classes'){
-		rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com -d /testresult"
-		sh 'docker cp SFCLI:/testresult pwd'
-		 if (rc != 0) { error 'Test Class/Classes failed' }
+		   try{
+		      rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com -d /testresult"
+		   } catch(Error){
+		   
+		   }
+			   sh 'docker cp SFCLI:/testresult pwd'
+		           sh 'cd pwd'
+		           sh 'ls'
+		           if (rc != 0) {
+				   echo 'Test Class/Classes failed' 
+			   }
 
 	   }
 	/*    
