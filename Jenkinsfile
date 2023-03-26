@@ -63,9 +63,13 @@ node {
 			   echo Error
 		   
 		   }
-			   sh 'docker cp SFCLI:/testresult ~/testresult'
-		           def testrunid = readFile(~/testresult/test-run-id.txt)
+			   sh 'docker cp SFCLI:/testresult ~/'
+		           def testrunid = readFile(/var/lib/jenkins/testresult/test-run-id.txt)
                            println(testrunid)
+		   
+		           rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com --resultformat tap --codecoverage -d /testresult"
+		           rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx apex get test -i ${testrunid} -o anantfromdbg@gmail.com --result-format json"
+			
 		           if (rc != 0) {
 				   echo 'Test Class/Classes failed' 
 			   }
