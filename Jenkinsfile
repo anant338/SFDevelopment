@@ -67,8 +67,8 @@ node {
 				   echo 'Test Class/Classes failed' 
 			   }
 		           //Reading the RunTest file
-		           def filepath =~/report
-		           println(filepath)
+		           def reportpath ="${env.WORKSPACE}"/report
+		           println(reportpath)
 		           sh 'docker cp SFCLI:/testresult ~/report'
                            def testrunid = readFile('/var/lib/jenkins/report/test-run-id.txt')
                            println(testrunid)
