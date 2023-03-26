@@ -57,7 +57,7 @@ node {
 	   
 	   stage('Run Test Classes'){
 		   try{
-		      rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com -d /testresult"
+		      rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com --resultformat tap --codecoverage -d /testresult"
 		   } catch(Error){
 			   echo Error
 		   
