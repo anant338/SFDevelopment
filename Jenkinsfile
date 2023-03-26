@@ -64,7 +64,7 @@ node {
 		   
 		   }
 			   sh 'docker cp SFCLI:/testresult ~/testresult'
-		           def testrunid = readFile(file: ~/testresult/test-run-id.txt)
+		           def testrunid = readFile(~/testresult/test-run-id.txt)
                            println(testrunid)
 		           if (rc != 0) {
 				   echo 'Test Class/Classes failed' 
