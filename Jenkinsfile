@@ -58,13 +58,14 @@ node {
 	   stage('Run Test Classes'){
 		   try{
 		      rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com --resultformat tap --codecoverage -d /testresult"
+			   
 		   } catch(Error){
 			   echo Error
 		   
 		   }
 			   sh 'docker cp SFCLI:/testresult ~/testresult'
-		         //  sh 'cd pwd'
-		         //  sh 'ls'
+		           def testrunid = readFile(file: ~/testresult/test-run-id.txt)
+                           println(testrunid)
 		           if (rc != 0) {
 				   echo 'Test Class/Classes failed' 
 			   }
