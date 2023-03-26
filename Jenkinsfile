@@ -52,7 +52,7 @@ node {
 	           //sh 'docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}'
 	               def keypath = '/keyfile'
 	               sh 'docker cp ${jwt_key_file} SFCLI:/keyfile'
-                   rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile /keyfile --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+                       rc = sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile /keyfile --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
 	    }
 	   
 	   stage('Run Test Classes'){
@@ -67,10 +67,10 @@ node {
 				   echo 'Test Class/Classes failed' 
 			   }
 		           //Reading the RunTest file
-		           def testfilepath = ~/report
 		           sh 'docker cp SFCLI:/testresult ~/report'
 		          // def testrunid = readFile('/var/lib/jenkins/report/test-run-id.txt')
-		          def testrunid = readFile(testfilepath + '/test-run-id.txt')
+		           def testfilepath = ~/report
+		           def testrunid = readFile(testfilepath + '/test-run-id.txt')
                            println(testrunid)
 		          // rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx apex get test -i ${testrunid} -o anantfromdbg@gmail.com --result-format json"
 		         def testresultfile = '/var/lib/jenkins/report/test-result-'+testrunid+'.json' 
