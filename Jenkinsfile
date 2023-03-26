@@ -66,12 +66,15 @@ node {
 		      if (rc != 0) {
 				   echo 'Test Class/Classes failed' 
 			   }
+		   
 		           //Reading the RunTest file
 		           sh 'docker cp SFCLI:/testresult ~/report'
                            def testrunid = readFile('/var/lib/jenkins/report/test-run-id.txt')
-                           println(testrunid)
+                           
 		          // rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx apex get test -i ${testrunid} -o anantfromdbg@gmail.com --result-format json"
 		           def testresultfile = '/var/lib/jenkins/report/test-result-'+testrunid+'.json' 
+		          
+		           //Need Pipeline utility Steps Plugin on jenkins 
 		           def props = readJSON file: testresultfile
 		           def codecoverage = props.summary.orgWideCoverage
 		           println(codecoverage)
