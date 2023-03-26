@@ -57,21 +57,22 @@ node {
 	   
 	   stage('Run Test Classes'){
 		   try{
-		      rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com --resultformat tap --codecoverage -d /testresult"
+		      rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx force:apex:test:run --testlevel RunLocalTests --targetusername anantfromdbg@gmail.com --resultformat human --codecoverage -d /testresult"
 			   
 		   } catch(Error){
 			   echo Error
 		   
-		   }
+		   } 
+		      if (rc != 0) {
+				   echo 'Test Class/Classes failed' 
+			   }
+		           //Reading the RunTest file
 			   sh 'docker cp SFCLI:/testresult ~/report'
 		           def testrunid = readFile('/var/lib/jenkins/report/test-run-id.txt')
                            println(testrunid)
-		   
-		           rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx apex get test -i ${testrunid} -o anantfromdbg@gmail.com --result-format json"
+		          // rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx apex get test -i ${testrunid} -o anantfromdbg@gmail.com --result-format json"
 			
-		           if (rc != 0) {
-				   echo 'Test Class/Classes failed' 
-			   }
+		           
 
 	   }
 	/*    
