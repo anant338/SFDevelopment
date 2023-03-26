@@ -68,7 +68,7 @@ node {
 			   }
 		           //Reading the RunTest file
 		           def testfilepath = ~/report
-		           sh "docker cp SFCLI:/testresult ${testfilepath}"
+		           sh 'docker cp SFCLI:/testresult ~/report'
 		          // def testrunid = readFile('/var/lib/jenkins/report/test-run-id.txt')
 		          def testrunid = readFile(testfilepath + '/test-run-id.txt')
                            println(testrunid)
