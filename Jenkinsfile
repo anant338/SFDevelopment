@@ -64,7 +64,7 @@ node {
 		   
 		   }
 			   sh 'docker cp SFCLI:/testresult ~/report'
-		           def testrunid = readFile(/var/lib/jenkins/report/testresult/test-run-id.txt)
+		           def testrunid = readFile('/var/lib/jenkins/report/testresult/test-run-id.txt')
                            println(testrunid)
 		   
 		           rc= sh returnStatus: true, script: "docker exec -i SFCLI bin/bash sfdx apex get test -i ${testrunid} -o anantfromdbg@gmail.com --result-format json"
