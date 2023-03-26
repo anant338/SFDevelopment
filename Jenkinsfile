@@ -77,10 +77,26 @@ node {
 		           //Need Pipeline utility Steps Plugin on jenkins 
 		           def props = readJSON file: testresultfile
 		           def codecoverage = props.summary.orgWideCoverage
+		           def outcome = props.summary.outcome
 		           println(codecoverage)
-		           
-
-	   }
+		           println(outcome)
+		        }
+	   
+	    stage('Code Quality Check'){
+		    def testrunid = readFile('/var/lib/jenkins/report/test-run-id.txt')
+		    def testresultfile = '/var/lib/jenkins/report/test-result-'+testrunid+'.json' 
+		    
+		withSonarQubeEnv(credentialsId: 'SonarCloud', installationName: 'SonarCloud') {
+               sh "${tool("SonarQube")}/bin/sonar-scanner \
+		-Dsonar.organization=anant338 \
+                -Dsonar.projectKey=anant338_SFDevelopment \
+		-Dsonar.language=apex \
+                -Dsonar.sources=. \
+                -Dsonar.tests=. \
+		-Dsonar.apex.coverage.reportPath=${testresultfile}  "
+           }
+	 }
+	   
 	/*    
 	  stage('Install CLI'){
 		    
